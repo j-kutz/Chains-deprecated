@@ -1,15 +1,17 @@
-import React, {Fragment} from 'react'
-import { StyleSheet } from 'react-native'
+import React, { Component } from 'react'
+import { StyleSheet, View, Text } from 'react-native'
 import { Button } from 'react-native-paper'
 
-const Dashboard = () => {
-    
-    return(
-        <View>
-            
-        </View>
-    )
-};
+export default class Dashboard extends Component {
+    render(){
+        return(
+            <View>
+                <Text>Dashboard</Text>
+                <Button onPress={() => this.props.navigation.navigate('Menu')}>Go to Menu</Button>
+            </View>
+        );
+    }
+}
 
 const styles = StyleSheet.create({
     bottom: {
@@ -19,5 +21,3 @@ const styles = StyleSheet.create({
       top: 0,
     },
   });
-
-export default Dashboard;
