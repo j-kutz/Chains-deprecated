@@ -6,18 +6,14 @@ export default class Dashboard extends Component {
     render(){
         return(
             <View>
-                <Text>Dashboard</Text>
-                <Button onPress={() => this.props.navigation.navigate('Menu')}>Go to Menu</Button>
+                <Button style={styles.button1} mode="contained" onPress={() => this.props.navigation.navigate('NewGame')}>New Game</Button>
             </View>
         );
     }
 }
 
 const styles = StyleSheet.create({
-    bottom: {
-      position: 'absolute',
-      left: 0,
-      right: 0,
-      top: 0,
+    button1: {
+        margin: 10,
     },
   });
