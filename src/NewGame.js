@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
-import { StyleSheet, View, Text } from 'react-native'
-import { Button, TextInput, DataTable } from 'react-native-paper'
+import { StyleSheet, View, Text, ScrollView } from 'react-native'
+import { Button, TextInput, List, Divider } from 'react-native-paper'
 import SelectCourse from './SelectCourse';
 
 export default class NewGame extends Component {
@@ -9,6 +9,7 @@ export default class NewGame extends Component {
         courseName: '',
         numberOfHoles: '',
         playerName: '',
+        players: ["Jordan", "Molly", "Matthew"]
     };
 
     static navigationOptions = {
@@ -31,7 +32,7 @@ export default class NewGame extends Component {
 
     render() {
         return (
-            <View>
+            <ScrollView>
                 <View style={styles.flexContainer}>
                     <SelectCourse />
                     <Button style={styles.button} mode="contained" onPress={() => this.setState({ showAddCourse: false })}>Add Course</Button>
@@ -52,43 +53,28 @@ export default class NewGame extends Component {
                     keyboardType={'numeric'}
                     numeric
                 />
-                <Button style={styles.button} mode="contained" >Select Players</Button>
                 <View style={styles.flexContainer}>
-                    <TextInput
-                        label='Player Name'
-                        value={this.state.playerName}
-                        onChangeText={playerName => this.setState({ playerName })}
-                        style={styles.addPlayerInput}
-                    />
+                    <Button style={styles.button} mode="contained" >Select Players</Button>
                     <Button style={styles.button} mode="contained" >Add Player</Button>
                 </View>
-                <DataTable>
-                    <DataTable.Header>
-                    <DataTable.Title>Dessert</DataTable.Title>
-                    <DataTable.Title numeric>Calories</DataTable.Title>
-                    <DataTable.Title numeric>Fat</DataTable.Title>
-                    </DataTable.Header>
-
-                    <DataTable.Row>
-                    <DataTable.Cell>Frozen yogurt</DataTable.Cell>
-                    <DataTable.Cell numeric>159</DataTable.Cell>
-                    <DataTable.Cell numeric>6.0</DataTable.Cell>
-                    </DataTable.Row>
-
-                    <DataTable.Row>
-                    <DataTable.Cell>Ice cream sandwich</DataTable.Cell>
-                    <DataTable.Cell numeric>237</DataTable.Cell>
-                    <DataTable.Cell numeric>8.0</DataTable.Cell>
-                    </DataTable.Row>
-
-                    <DataTable.Pagination
-                    page={1}
-                    numberOfPages={3}
-                    onPageChange={(page) => { console.log(page); }}
-                    label="1-2 of 6"
-                    />
-                </DataTable>
-            </View>
+                <TextInput
+                    label='Player Name'
+                    value={this.state.playerName}
+                    onChangeText={playerName => this.setState({ playerName })}
+                    style={styles.addPlayerInput}
+                />
+                <List.Section>
+                    <List.Subheader>Players</List.Subheader>
+                    {this.state.players.map(player => 
+                        <List.Item
+                            title={player}
+                            left={() => <List.Icon color="#000" icon="account-circle" />}
+                            right={() => <Button icon="delete"></Button>}
+                        />
+                    )}
+                </List.Section>
+                <Button style={styles.button} mode="contained" onPress={() => console.log("Start Game")}>Start Game</Button>
+            </ScrollView>
         )
     }
 }
@@ -102,7 +88,6 @@ const styles = StyleSheet.create({
         margin: 10,
     },
     addPlayerInput: {
-        flexBasis: '57%',
         margin: 10,
     },
     textInput: {
