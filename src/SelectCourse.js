@@ -14,7 +14,7 @@ export default class SelectCourse extends Component {
     render() {
         return (
             <View>
-                <Button onPress={this._showDialog} style={styles.button1} mode="contained">Select Course</Button>
+                <Button style={styles.button}  mode="contained" onPress={this._showDialog}>Select Course</Button>
                 <Portal>
                     <Dialog
                         visible={this.state.visible}
@@ -34,7 +34,7 @@ export default class SelectCourse extends Component {
 }
 
 const styles = StyleSheet.create({
-    button1: {
+    button: {
         margin: 10,
     },
   });
