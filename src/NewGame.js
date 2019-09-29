@@ -42,7 +42,7 @@ export default class NewGame extends Component {
     }
 
     selectCourse(selectedCourse) {
-        this.setState({ courseName: selectedCourse, visible: 'false' })
+        this.setState({ courseName: selectedCourse.name, numberOfHoles: selectedCourse.holes })
     }
 
     render() {
