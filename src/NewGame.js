@@ -30,10 +30,17 @@ export default class NewGame extends Component {
           ),
       };
 
-    // addPlayer(playerName){
-    //     this.state.players.push(playerName);
-    //     this.setState({ playerName: '' });
-    // }
+    selectCourse(selectedCourse) {
+        this.setState({ showAddCourse: true, courseName: selectedCourse.name, numberOfHoles: selectedCourse.holes })
+    }
+
+    addCourse() {
+        this.setState({ showAddCourse: false, courseName: '', numberOfHoles: '' })
+    }
+
+    addPlayer(playerName){
+        this.setState({ players: [...this.state.players, playerName], playerName: '' });
+    }
 
     deletePlayer(playerName){
         this.setState({players: this.state.players.filter(function(player) { 
@@ -41,16 +48,12 @@ export default class NewGame extends Component {
         })});
     }
 
-    selectCourse(selectedCourse) {
-        this.setState({ courseName: selectedCourse.name, numberOfHoles: selectedCourse.holes })
-    }
-
     render() {
         return (
             <ScrollView>
                 <View style={styles.flexContainer}>
                     <SelectCourse selectCourse={this.selectCourse.bind(this)}/>
-                    <Button style={styles.button} mode="contained" onPress={() => this.setState({ showAddCourse: false })}>Add Course</Button>
+                    <Button style={styles.button} mode="contained" onPress={this.addCourse.bind(this)}>Add Course</Button>
                 </View>
                 <TextInput
                     label='Course Name'
@@ -70,7 +73,7 @@ export default class NewGame extends Component {
                 />
                 <View style={styles.flexContainer}>
                     <Button style={styles.button} mode="contained" >Select Players</Button>
-                    <Button style={styles.button} mode="contained" onPress={() => this.setState({ players: [...this.state.players, this.state.playerName], playerName: '' })}>Add Player</Button>
+                    <Button style={styles.button} mode="contained" onPress={this.addPlayer.bind(this, this.state.playerName)}>Add Player</Button>
                 </View>
                 <TextInput
                     label='Player Name'
