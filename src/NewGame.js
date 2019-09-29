@@ -35,6 +35,12 @@ export default class NewGame extends Component {
     //     this.setState({ playerName: '' });
     // }
 
+    deletePlayer(playerName){
+        this.setState({players: this.state.players.filter(function(player) { 
+            return player !== playerName 
+        })});
+    }
+
     render() {
         return (
             <ScrollView>
@@ -72,9 +78,10 @@ export default class NewGame extends Component {
                     <List.Subheader>Players</List.Subheader>
                     {this.state.players.map(player => 
                         <List.Item
+                            key={player}
                             title={player}
                             left={() => <List.Icon color="#000" icon="account-circle" />}
-                            right={() => <Button icon="delete"></Button>}
+                            right={() => <Button icon="delete" style={styles.deleteButton} onPress={this.deletePlayer.bind(this, player)}></Button>}
                         />
                     )}
                 </List.Section>
@@ -97,5 +104,8 @@ const styles = StyleSheet.create({
     },
     textInput: {
         margin: 10,
+    },
+    deleteButton: {
+        marginTop: 10,
     },
   });
