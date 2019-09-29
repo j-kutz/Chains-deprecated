@@ -30,6 +30,11 @@ export default class NewGame extends Component {
           ),
       };
 
+    // addPlayer(playerName){
+    //     this.state.players.push(playerName);
+    //     this.setState({ playerName: '' });
+    // }
+
     render() {
         return (
             <ScrollView>
@@ -55,7 +60,7 @@ export default class NewGame extends Component {
                 />
                 <View style={styles.flexContainer}>
                     <Button style={styles.button} mode="contained" >Select Players</Button>
-                    <Button style={styles.button} mode="contained" >Add Player</Button>
+                    <Button style={styles.button} mode="contained" onPress={() => this.setState({ players: [...this.state.players, this.state.playerName], playerName: '' })}>Add Player</Button>
                 </View>
                 <TextInput
                     label='Player Name'
@@ -73,7 +78,7 @@ export default class NewGame extends Component {
                         />
                     )}
                 </List.Section>
-                <Button style={styles.button} mode="contained" onPress={() => console.log("Start Game")}>Start Game</Button>
+                <Button style={styles.button} mode="contained" >Start Game</Button>
             </ScrollView>
         )
     }
