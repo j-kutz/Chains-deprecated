@@ -41,11 +41,15 @@ export default class NewGame extends Component {
         })});
     }
 
+    selectCourse(selectedCourse) {
+        this.setState({ courseName: selectedCourse, visible: 'false' })
+    }
+
     render() {
         return (
             <ScrollView>
                 <View style={styles.flexContainer}>
-                    <SelectCourse />
+                    <SelectCourse selectCourse={this.selectCourse.bind(this)}/>
                     <Button style={styles.button} mode="contained" onPress={() => this.setState({ showAddCourse: false })}>Add Course</Button>
                 </View>
                 <TextInput
