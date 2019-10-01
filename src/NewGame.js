@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import { StyleSheet, View, Text, ScrollView } from 'react-native'
 import { Button, TextInput, List, Divider } from 'react-native-paper'
-import SelectCourse from './SelectCourse';
+import SelectCourse from './SelectCourse'
+import SelectPlayers from './SelectPlayers'
 
 export default class NewGame extends Component {
     state = {
@@ -38,6 +39,10 @@ export default class NewGame extends Component {
         this.setState({ showAddCourse: false, courseName: '', numberOfHoles: '' })
     }
 
+    selectPlayers(selectedPlayers) {
+        this.setState({ players: selectedPlayers })
+    }
+
     addPlayer(playerName){
         this.setState({ players: [...this.state.players, playerName], playerName: '' });
     }
@@ -72,7 +77,7 @@ export default class NewGame extends Component {
                     numeric
                 />
                 <View style={styles.flexContainer}>
-                    <Button style={styles.button} mode="contained" >Select Players</Button>
+                    <SelectPlayers  selectPlayers={this.selectPlayers.bind(this)}/>
                     <Button style={styles.button} mode="contained" onPress={this.addPlayer.bind(this, this.state.playerName)}>Add Player</Button>
                 </View>
                 <TextInput
@@ -92,7 +97,7 @@ export default class NewGame extends Component {
                         />
                     )}
                 </List.Section>
-                <Button style={styles.button} mode="contained" >Start Game</Button>
+                <Button style={styles.button} mode="contained" onPress={() => this.props.navigation.navigate('ActiveGame')}>Start Game</Button>
             </ScrollView>
         )
     }

@@ -4,11 +4,13 @@ import { createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 import Dashboard from './src/Dashboard';
 import NewGame from './src/NewGame';
+import ActiveGame from './src/ActiveGame'
 
 const AppNavigator = createStackNavigator(
   {
     Dashboard: Dashboard,
-    NewGame: NewGame
+    NewGame: NewGame,
+    ActiveGame: ActiveGame, 
   },
   {
     initialRouteName: 'Dashboard',
