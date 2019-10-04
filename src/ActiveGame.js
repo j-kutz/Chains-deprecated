@@ -8,6 +8,8 @@ export default class ActiveGame extends Component {
         title: 'Current Game',
         headerStyle: {
           backgroundColor: '#6200ee',
+          elevation: 0, // remove shadow on Android
+          shadowOpacity: 0, // remove shadow on iOS
         },
         headerTintColor: '#fff',
         headerTitleStyle: {

@@ -1,25 +1,44 @@
 import React, { Component } from 'react'
 import { View, StyleSheet } from 'react-native'
 import { Button, Paragraph, Dialog, Portal, Checkbox, Text } from 'react-native-paper'
+import produce from 'immer'
 
 export default class SelectPlayers extends Component {
     state = {
         visible: false,
-        checked: false,
+        players: [{"name":"Michael", "checked":"unchecked"}, {"name":"Dwight", "checked":"unchecked"}, {"name":"Jim", "checked":"unchecked"}],
         selectedPlayers: [],
-        players: ["Michael", "Dwight", "Jim"]
     };
 
     _showDialog = () => this.setState({ visible: true });
 
     _hideDialog = () => this.setState({ visible: false });
 
-    toggleCheckbox(status,) {
+    // select() {
+    //     let playersArray = []
+    //     for (let i=0; i<this.state.players.length; i++) {
+    //         playersArray.push(this.state.players[i].name);
+    //     }
+    //     return playersArray;
+    // }
 
+    toggleCheckbox(player) {
+        let checkedString = player.checked === 'checked' ?  'unchecked' : 'checked';
+        this.setState( 
+            produce(draft => { 
+                draft.players[this.state.players.indexOf(player)].checked = checkedString;
+            }),
+        );
+        if(checkedString === 'checked'){
+            this.setState({ selectedPlayers: [...this.state.selectedPlayers, player.name] })
+        } else {
+            this.setState({ selectedPlayers: this.state.selectedPlayers.filter(function(player1) {
+                return player1 !== player.name
+            })})
+        }
     }
 
     render() {
-        const { checked } = this.state;
         return (
             <View>
                 <Button style={styles.button}  mode="contained" onPress={this._showDialog}>Select Player</Button>
@@ -29,13 +48,13 @@ export default class SelectPlayers extends Component {
                         onDismiss={this._hideDialog}>
                         <Dialog.Title>Select Players</Dialog.Title>
                         <Dialog.Content>
-                            {this.state.players.map((item, index) =>
-                                <View key={item} style={styles.flexContainer}>
+                            {this.state.players.map(player =>
+                                <View key={player.name} style={styles.flexContainer}>
                                     <Checkbox
-                                        status={this.state[item.id] ? 'checked' : 'unchecked'}
-                                        onPress={(event) => { this.setState({ [item.id]: !event.target.value }); }}
+                                        status={player.checked}
+                                        onPress={this.toggleCheckbox.bind(this, player)}
                                     />
-                                    <Text>{item}</Text>
+                                    <Text>{player.name}</Text>
                                 </View>
                             )}
                         </Dialog.Content>
