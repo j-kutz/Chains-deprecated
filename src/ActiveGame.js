@@ -2,11 +2,11 @@ import React, { Component } from 'react'
 import { StyleSheet, View, Text, Dimensions } from 'react-native'
 import { createMaterialTopTabNavigator } from 'react-navigation-tabs'
 import { createAppContainer } from 'react-navigation'
-import { TabView, SceneMap } from 'react-native-tab-view';
+import { TabView, SceneMap, TabBar } from 'react-native-tab-view';
 import produce from 'immer'
 
 const FirstRoute = () => (
-  <View style={[styles.scene, { backgroundColor: '#ff4081' }]} />
+  <View style={[styles.scene, { backgroundColor: 'white' }]} />
 );
 
 const SecondRoute = () => (
@@ -48,6 +48,18 @@ export default class ActiveGame extends Component {
       })
     }
 
+    _renderTabBar = props => {
+      return(
+        <TabBar
+          {...props}
+          indicatorStyle={{ backgroundColor: 'white' }}
+          style={{ backgroundColor: '#6200ee' }}
+          scrollEnabled={true}
+          tabStyle={styles.tabItem}
+        />
+      )
+    }
+
     render() {
       if(this.state.sceneMap && this.state.routes){
         return (
@@ -55,7 +67,8 @@ export default class ActiveGame extends Component {
             navigationState={this.state}
             renderScene={SceneMap(this.state.sceneMap)}
             onIndexChange={index => this.setState({ index })}
-            initialLayout={{ width: 100 }}
+            initialLayout={{ width: Dimensions.get('window').width }}
+            renderTabBar={this._renderTabBar}
           />
         )
       } else {
@@ -71,6 +84,17 @@ export default class ActiveGame extends Component {
 const styles = StyleSheet.create({
   scene: {
     flex: 1,
+  },
+  tabBar: {
+    flexDirection: 'row',
+    paddingTop: 10,
+    justifyContent: 'flex-start',
+  },
+  tabItem: {
+    flex: 1,
+    alignItems: 'center',
+    padding: 5,
+    width: 100,
   },
 });
 
