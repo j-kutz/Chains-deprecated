@@ -37,7 +37,7 @@ export default class SelectCourse extends Component {
                         </Dialog.Content>
                         <Dialog.Actions>
                             <Button onPress={this._hideDialog}>Cancel</Button>
-                            <Button onPress={this.props.selectCourse.bind(this, this.state.selectedCourse)}>Select</Button>
+                            <Button onPress={() => {this._hideDialog(); this.props.selectCourse(this.state.selectedCourse);}}>Select</Button>
                         </Dialog.Actions>
                     </Dialog>
                 </Portal>

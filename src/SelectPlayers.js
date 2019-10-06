@@ -14,14 +14,6 @@ export default class SelectPlayers extends Component {
 
     _hideDialog = () => this.setState({ visible: false });
 
-    // select() {
-    //     let playersArray = []
-    //     for (let i=0; i<this.state.players.length; i++) {
-    //         playersArray.push(this.state.players[i].name);
-    //     }
-    //     return playersArray;
-    // }
-
     toggleCheckbox(player) {
         let checkedString = player.checked === 'checked' ?  'unchecked' : 'checked';
         this.setState( 
@@ -60,7 +52,7 @@ export default class SelectPlayers extends Component {
                         </Dialog.Content>
                         <Dialog.Actions>
                             <Button onPress={this._hideDialog}>Cancel</Button>
-                            <Button onPress={this.props.selectPlayers.bind(this, this.state.selectedPlayers)}>Select</Button>
+                            <Button onPress={() => {this._hideDialog(); this.props.selectPlayers(this.state.selectedPlayers);}}>Select</Button>
                         </Dialog.Actions>
                     </Dialog>
                 </Portal>
