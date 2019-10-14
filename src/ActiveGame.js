@@ -22,7 +22,6 @@ export class ActiveGame extends Component {
       };
     
     state = {
-      numOfHoles: 9,
       index: 0,
       routes: [],
       sceneMap: {},
@@ -32,7 +31,7 @@ export class ActiveGame extends Component {
     componentDidMount() {
       let routesPlaceholder = [];
       let sceneMapPlaceholder = {};
-      for(let i=1; i<=this.state.numOfHoles; i++){
+      for(let i=1; i<=this.props.numOfHoles; i++){
         routesPlaceholder.push({ key: i, title: 'Hole '+i });
         sceneMapPlaceholder[i] = ActiveHole
       }
@@ -78,7 +77,8 @@ export class ActiveGame extends Component {
 
 function mapStateToProps(state) {
   return {
-    courseName: state.gameReducer.courseName
+    courseName: state.gameReducer.courseName,
+    numOfHoles: state.gameReducer.numOfHoles,
   }
 } 
 
