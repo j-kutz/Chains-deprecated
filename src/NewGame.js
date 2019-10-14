@@ -3,8 +3,10 @@ import { StyleSheet, View, Text, ScrollView } from 'react-native'
 import { Button, TextInput, List, Divider } from 'react-native-paper'
 import SelectCourse from './SelectCourse'
 import SelectPlayers from './SelectPlayers'
+import { startNewGame } from './actions/gameActions'
+import { connect } from "react-redux";
 
-export default class NewGame extends Component {
+export class NewGame extends Component {
     state = {
         showAddCourse: true,
         courseName: '',
@@ -97,11 +99,17 @@ export default class NewGame extends Component {
                         />
                     )}
                 </List.Section>
-                <Button style={styles.button} mode="contained" onPress={() => this.props.navigation.navigate('ActiveGame')}>Start Game</Button>
+                <Button style={styles.button} mode="contained" onPress={() => {
+                    this.props.startNewGame(this.state.courseName, this.state.numberOfHoles, this.state.players);
+                    this.props.navigation.navigate('ActiveGame');}}>
+                    Start Game
+                </Button>
             </ScrollView>
         )
     }
 }
+
+export default connect(null, { startNewGame })(NewGame);
 
 const styles = StyleSheet.create({
     flexContainer: {

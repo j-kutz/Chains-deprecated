@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
-import { StyleSheet, View, Image } from 'react-native'
+import { StyleSheet, View, Image, Text } from 'react-native'
 import { Button, Surface } from 'react-native-paper'
 
-export default class Dashboard extends Component {
+export class Dashboard extends Component {
     static navigationOptions = {
         title: 'Chains',
         headerStyle: {
@@ -30,6 +30,8 @@ export default class Dashboard extends Component {
         );
     }
 }
+
+export default (Dashboard);
 
 const styles = StyleSheet.create({
     button1: {

@@ -4,18 +4,12 @@ import { createMaterialTopTabNavigator } from 'react-navigation-tabs'
 import { createAppContainer } from 'react-navigation'
 import { TabView, SceneMap, TabBar } from 'react-native-tab-view';
 import produce from 'immer'
+import { connect } from "react-redux";
+import ActiveHole from './ActiveHole'
 
-const FirstRoute = () => (
-  <View style={[styles.scene, { backgroundColor: 'white' }]} />
-);
-
-const SecondRoute = () => (
-  <View style={[styles.scene, { backgroundColor: '#673ab7' }]} />
-);
-
-export default class ActiveGame extends Component {
+export class ActiveGame extends Component {
     static navigationOptions = {
-        title: 'Current Game',
+        title: 'Fix this title bar later',
         headerStyle: {
           backgroundColor: '#6200ee',
           elevation: 0, // remove shadow on Android
@@ -32,6 +26,7 @@ export default class ActiveGame extends Component {
       index: 0,
       routes: [],
       sceneMap: {},
+      courseName: ' ',
     };
 
     componentDidMount() {
@@ -39,7 +34,7 @@ export default class ActiveGame extends Component {
       let sceneMapPlaceholder = {};
       for(let i=1; i<=this.state.numOfHoles; i++){
         routesPlaceholder.push({ key: i, title: 'Hole '+i });
-        sceneMapPlaceholder[i] = FirstRoute
+        sceneMapPlaceholder[i] = ActiveHole
       }
 
       this.setState({
@@ -81,6 +76,14 @@ export default class ActiveGame extends Component {
     }
 }
 
+function mapStateToProps(state) {
+  return {
+    courseName: state.gameReducer.courseName
+  }
+} 
+
+export default connect(mapStateToProps)(ActiveGame);
+
 const styles = StyleSheet.create({
   scene: {
     flex: 1,
@@ -97,45 +100,3 @@ const styles = StyleSheet.create({
     width: 100,
   },
 });
-
-// class Hole1 extends React.Component {
-//     render() {
-//       return (
-//         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-//           <Text>Hole 1!</Text>
-//         </View>
-//       );
-//     }
-//   }
-  
-//   class Hole2 extends React.Component {
-//     render() {
-//       return (
-//         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-//           <Text>Hole 2!</Text>
-//         </View>
-//       );
-//     }
-//   }
-  
-//   const TabNavigator = createMaterialTopTabNavigator({
-//     'Hole 1': Hole1,
-//     'Hole 2': Hole2,
-//   },
-//   {
-//       swipeEnabled: true,
-//       tabBarOptions: {
-//         labelStyle: {
-//           fontSize: 12,
-//         },
-//         tabStyle: {
-//           width: 100,
-//         },
-//         style: {
-//           backgroundColor: '#6200ee',
-//         },
-//       }
-//   }
-//   );
-  
-//   const TabNavigation = createAppContainer(TabNavigator);
